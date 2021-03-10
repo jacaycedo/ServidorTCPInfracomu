@@ -55,14 +55,24 @@ public class ServerThread extends Thread
 	
 	private static void sendFile(String path) throws Exception{
         int bytes = 0;
+        byte[] textoCifrado;
         File file = new File(path);
-        FileInputStream fileInputStream = new FileInputStream(file);        
+        MessageDigest cifrador = MessageDigest.getInstance("MD5");
+		
+        FileInputStream fileInputStream = new FileInputStream(file); 
+        int fileSize=(int) file.length();//Tamanio archivo en bytes
+        String fileName=path.substring(5, path.length());
+        
         dataOutputStream.writeLong(file.length());  
         byte[] buffer = new byte[4*1024];
+        long startTime = System.currentTimeMillis();
         while ((bytes=fileInputStream.read(buffer))!=-1){
             dataOutputStream.write(buffer,0,bytes);
             dataOutputStream.flush();
         }
+        long endTime = System.currentTimeMillis();
+        long tiempoTransferencia = endTime - startTime;
+        
         fileInputStream.close();
     }
 
