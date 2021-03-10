@@ -1,21 +1,26 @@
 package Main;
 import java.net.*;
 import java.io.*;
+import java.security.MessageDigest;
 
-public class ServerThread implements Runnable
+public class ServerThread extends Thread 
 {
 
-
+	private final static int serverPort = 5555;
+	private int id;
 	private ServerSocket socket;
 	private boolean fin = false;
-	private File enviado;
+	private static String ruta="";
+    private static DataOutputStream dataOutputStream = null;
+    private static DataInputStream dataInputStream = null;
 
-	public ServerThread(ServerSocket socket, File enviado) 
+	public ServerThread(int identificacion,String path) 
 	{
 		try
 		{
-			this.socket = socket;		
-			this.enviado = enviado;
+			this.socket = new ServerSocket(serverPort);	
+			this.id=identificacion;
+			ruta=path;
 		}
 		catch (Exception e) 
 		{
@@ -27,26 +32,39 @@ public class ServerThread implements Runnable
 	{
 		try 
 		{
-			Socket cliente = socket.accept();
-			System.out.println(socket + " accepted connection : " + cliente);
-			byte [] mybytearray  = new byte [(int)enviado.length()];
-			FileInputStream fis = new FileInputStream(enviado);
-			BufferedInputStream bis = new BufferedInputStream(fis);
-			bis.read(mybytearray,0,mybytearray.length);
-			OutputStream  os = cliente.getOutputStream();
-			System.out.println("Sending "  + "(" + mybytearray.length + " bytes)");
-			os.write(mybytearray,0,mybytearray.length);
-			os.flush();
-			bis.close();
-			System.out.println("Done.");
+			System.out.println("Server "+id+" listening in port:5555");
+            Socket clientSocket = socket.accept();
+            System.out.println(clientSocket+" connected.");
+            dataInputStream = new DataInputStream(clientSocket.getInputStream());
+            dataOutputStream = new DataOutputStream(clientSocket.getOutputStream());
+            
+            sendFile(ruta);
+            
+            
+            dataInputStream.close();
+            dataOutputStream.close();
+            clientSocket.close();
 
 		} 
-		catch (IOException e) 
+		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
 
 	}
+	
+	private static void sendFile(String path) throws Exception{
+        int bytes = 0;
+        File file = new File(path);
+        FileInputStream fileInputStream = new FileInputStream(file);        
+        dataOutputStream.writeLong(file.length());  
+        byte[] buffer = new byte[4*1024];
+        while ((bytes=fileInputStream.read(buffer))!=-1){
+            dataOutputStream.write(buffer,0,bytes);
+            dataOutputStream.flush();
+        }
+        fileInputStream.close();
+    }
 
 
 	@Override
