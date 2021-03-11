@@ -1,0 +1,3 @@
+Nombre Archivo: archivo2.txt
+Tamaño Archivo: 24
+Tiempo Transferencia: 42

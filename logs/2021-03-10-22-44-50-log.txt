@@ -1,0 +1,4 @@
+Nombre Archivo: archivo2.txt
+Tamaño Archivo: 24bytes
+Tiempo Transferencia: 23ms
+Id Cliente al que se realizo transferencia: 1
