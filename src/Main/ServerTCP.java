@@ -12,9 +12,9 @@ public class ServerTCP
 
 		Scanner lector = new Scanner(System.in);	
 		System.out.println("Digite el archivo que quiere enviar");
-		String archivo = lector.nextLine() ;
+		int archivo =Integer.parseInt(lector.nextLine())  ;
 		String ruta="";
-		if(archivo=="1") {
+		if(archivo==1) {
 			ruta="data/archivo1.txt";
 		}
 		else {
@@ -22,7 +22,7 @@ public class ServerTCP
 		}			
 		System.out.println("Digite la cantidad de clientes que recibiran el archivo");
 		int cantidad =Integer.parseInt(lector.nextLine());
-		ServerThread newThread=new ServerThread(1,ruta);
+		ServerThread newThread=new ServerThread(1,ruta,archivo);
 		newThread.start();
 		
 		
