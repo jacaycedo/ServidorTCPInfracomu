@@ -64,10 +64,10 @@ public class ServerThread extends Thread
 		MessageDigest cifrador = MessageDigest.getInstance("MD5");
 
 		FileInputStream fileInputStream = new FileInputStream(file); 
-		int fileSize=(int) file.length();//Tamanio archivo en bytes
+		long fileSize=file.length();//Tamanio archivo en bytes
 		String fileName=path.substring(5, path.length());
 
-		dataOutputStream.write(fileSize); 
+		dataOutputStream.writeLong(fileSize); 
 		int idCliente=dataInputStream.read();
 		byte[] buffer = new byte[4*1024];
 		long startTime = System.currentTimeMillis();

@@ -40,8 +40,8 @@ public class ClientTCP {
 		int bytes = 0;
 		FileOutputStream fileOutputStream = new FileOutputStream(fileName);
 
-		int size = dataInputStream.read();
-		int sizeAux = size;
+		long size = dataInputStream.readLong();
+		long sizeAux = size;
 		dataOutputStream.write(id);
 		
 		byte[] buffer = new byte[4*1024];
