@@ -8,20 +8,18 @@ import java.time.format.DateTimeFormatter;
 public class ServerThread extends Thread 
 {
 
-	private final static int serverPort = 5555;
 	private int id;
 	private ServerSocket socket;
-	private boolean fin = false;
 	private String ruta="";
 	private DataOutputStream dataOutputStream = null;
 	private DataInputStream dataInputStream = null;
 	private int archivo;
 
-	public ServerThread(int identificacion,String path,int opcion) 
+	public ServerThread(int identificacion,String path,int opcion, int puerto) 
 	{
 		try
 		{
-			this.socket = new ServerSocket(serverPort);	
+			this.socket = new ServerSocket(puerto);	
 			this.id=identificacion;
 			ruta=path;
 			archivo=opcion;
@@ -36,7 +34,7 @@ public class ServerThread extends Thread
 	{
 		try 
 		{
-			System.out.println("Server "+id+" esperando solicitudes en puerto:5555");
+			System.out.println("Server "+id+" esperando solicitudes en puerto: " + socket.getLocalPort());
 			Socket clientSocket = socket.accept();
 			System.out.println(clientSocket+" connected.");
 			dataInputStream = new DataInputStream(clientSocket.getInputStream());
@@ -80,12 +78,14 @@ public class ServerThread extends Thread
 			cantidadPaquetes++;
 			dataOutputStream.flush();
 		}
-		
-		if(archivo==1) {
+
+		if(archivo==1) 
+		{
 			dataOutputStream.write(1);
 			dataOutputStream.flush();
 		}
-		else {
+		else 
+		{
 			dataOutputStream.write(2);
 			dataOutputStream.flush();
 		}

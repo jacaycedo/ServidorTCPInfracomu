@@ -11,27 +11,29 @@ import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ClientTCP {
+public class ClientTCP extends Thread {
 	private static DataOutputStream dataOutputStream = null;
 	private static DataInputStream dataInputStream = null;
 	private static int id;
 	private static int cantidadClientes;	
 	private int archivo;
-//cuando se pase a threads quitar el static
-	
-	
-	public static void main(String[] args) throws IOException {
-		try(Socket socket = new Socket("localhost",5555)) {
-			id=1;
-			cantidadClientes=2;
+	//cuando se pase a threads quitar el static
+
+
+	public ClientTCP(int id, int puerto) {
+		try(Socket socket = new Socket("localhost",puerto)) 
+		{
+			this.id = id;
+			cantidadClientes = 2;
 			dataInputStream = new DataInputStream(socket.getInputStream());
 			dataOutputStream = new DataOutputStream(socket.getOutputStream());
 			String nombre="ArchivosRecibidos/Cliente"+id+"-Prueba-"+cantidadClientes+".txt";
 			receiveFile(nombre);
 			dataInputStream.close();
 			dataInputStream.close();
-		}catch (Exception e){
-			
+		}
+		catch (Exception e){
+
 			e.printStackTrace();
 		}
 	}
@@ -43,7 +45,7 @@ public class ClientTCP {
 		long size = dataInputStream.readLong();
 		long sizeAux = size;
 		dataOutputStream.write(id);
-		
+
 		byte[] buffer = new byte[4*1024];
 		int cantidadPaquetes=0;
 		long startTime = System.currentTimeMillis();
@@ -52,16 +54,18 @@ public class ClientTCP {
 			cantidadPaquetes++;
 			size -= bytes;      
 		}
-		
+
 		long endTime = System.currentTimeMillis();
 		long tiempoTransferencia = endTime - startTime;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");  
 		LocalDateTime now = LocalDateTime.now();  
 		int archivoRecibido=dataInputStream.read();
 		String nombreArchivo="archivo1.txt";
-		if(archivoRecibido==2) {
+		if(archivoRecibido==2) 
+		{
 			nombreArchivo="archivo2.txt";
 		}
+		System.out.println(dtf.format(now));
 		String nombreLog="logsCliente/"+dtf.format(now)+"-log.txt";  
 		PrintWriter writer = new PrintWriter(nombreLog, "UTF-8");
 		writer.println("Nombre Archivo: "+nombreArchivo);
@@ -69,11 +73,28 @@ public class ClientTCP {
 		writer.println("Cantidad de Paquetes Transmitidos: "+cantidadPaquetes);
 		writer.println("Tiempo Transferencia: "+tiempoTransferencia+"ms");
 		writer.println("Id Cliente al que se realizo transferencia: "+id);
-		writer.println("Estado de transferencia: "+200);
-		
+		writer.println("Estado de transferencia: " + 200);
 		dataOutputStream.write(200);
 		System.out.println("File Received");
-		writer.close();
+		writer.close(); 
 		fileOutputStream.close();
 	}
+
+
+	@Override
+	public void run() 
+	{
+		try 
+		{
+			String nombre="ArchivosRecibidos/Cliente"+id+"-Prueba-"+cantidadClientes+".txt";
+			receiveFile(nombre);
+			dataInputStream.close();
+			dataInputStream.close();			
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
 }
+
