@@ -35,7 +35,7 @@ public class ClientTCP extends Thread {
 		dataOutputStream.write(id);
 
 		byte[] buffer = new byte[4*1024];
-		int cantidadPaquetes=0;
+		int cantidadPaquetes=0;	
 		long startTime = System.currentTimeMillis();
 		while (size > 0 && (bytes = dataInputStream.read(buffer, 0, (int)Math.min(buffer.length, size))) != -1) {
 			fileOutputStream.write(buffer,0,bytes);
@@ -53,7 +53,7 @@ public class ClientTCP extends Thread {
 		{
 			nombreArchivo="archivo2.txt";
 		}
-		String nombreLog="logsCliente/"+dtf.format(now)+"-log.txt";  
+		String nombreLog="logsCliente/"+dtf.format(now)+"-c"+(id)+"-log.txt";  
 		PrintWriter writer = new PrintWriter(nombreLog, "UTF-8");
 		writer.println("Nombre Archivo: "+nombreArchivo);
 		writer.println("Tamaño Archivo: "+sizeAux+"bytes");
@@ -62,7 +62,7 @@ public class ClientTCP extends Thread {
 		writer.println("Id Cliente al que se realizo transferencia: "+id);
 		writer.println("Estado de transferencia: " + 200);
 		dataOutputStream.write(200);
-		System.out.println("Client "+ id+ " Received File");
+		System.out.println("Client "+ (id)+ " Received File");
 		writer.close(); 
 		fileOutputStream.close();
 	}

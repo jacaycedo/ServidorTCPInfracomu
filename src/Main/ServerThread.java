@@ -75,7 +75,7 @@ public class ServerThread extends Thread
 		long startTime = System.currentTimeMillis();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");  
 		LocalDateTime now = LocalDateTime.now();  
-		String nombreLog="logsServidor/"+dtf.format(now)+"-log.txt";  
+		String nombreLog="logsServidor/"+dtf.format(now)+"id"+id+"-log.txt";  
 		int cantidadPaquetes=0;
 		while ((bytes=fileInputStream.read(buffer))!=-1){
 			dataOutputStream.write(buffer,0,bytes);
