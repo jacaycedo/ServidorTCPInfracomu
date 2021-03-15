@@ -8,11 +8,11 @@ import java.security.NoSuchAlgorithmException;
 
 public class Cifrador {
 	
-	private static MessageDigest digest;
+	private MessageDigest digest;
 	
 	public Cifrador() {
 		try {
-			digest = MessageDigest.getInstance("SHA256");
+			digest = MessageDigest.getInstance("MD5");
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -20,7 +20,7 @@ public class Cifrador {
 	}
 	
 	
-	public String getFileChecksum(File file) throws IOException
+	public String getFileChecksum(String file) throws IOException
 	{
 	    FileInputStream fis = new FileInputStream(file);
 	     

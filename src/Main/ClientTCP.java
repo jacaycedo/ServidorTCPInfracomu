@@ -58,10 +58,11 @@ public class ClientTCP extends Thread {
 		}
 		File file = new File(fileName);
 		System.out.println("file size"+file.length());
-		String integridad=cifrador.getFileChecksum(file);
+		String integridad=cifrador.getFileChecksum(fileName);
 		String estadoIntegridad="No presenta problemas de integridad";
 
-		if(integridad!=hash) {
+		if(!integridad.equals(hash)) 
+		{
 			estadoIntegridad="Presenta problemas de integridad";
 		}
 		String nombreLog="logsCliente/"+dtf.format(now)+"-c"+(id)+"-log.txt";  

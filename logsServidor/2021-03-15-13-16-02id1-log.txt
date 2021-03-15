@@ -1,7 +1,0 @@
-Nombre Archivo: archivo2.txt
-Tamaño Archivo: 24bytes
-Cantidad de Paquetes Transmitidos: 1
-Tiempo Transferencia: 23ms
-Id Cliente al que se realizo transferencia: 2
-Estado de transferencia: 200
-Hash enviado: 3b82fe88f4e2e6188981b8656cabd172

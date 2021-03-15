@@ -65,7 +65,7 @@ public class ServerThread extends Thread
 	private void sendFile(String path) throws Exception{
 		int bytes = 0;
 		File file = new File(path);
-		String hash=cifrador.getFileChecksum(file);
+		String hash=cifrador.getFileChecksum(path);
 		System.out.println("Servidor:" +hash);
 		FileInputStream fileInputStream = new FileInputStream(file);
 		dataOutputStream.write(cantidadClientes);
