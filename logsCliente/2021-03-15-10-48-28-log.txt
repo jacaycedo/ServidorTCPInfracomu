@@ -1,6 +1,0 @@
-Nombre Archivo: archivo1.txt
-Tamaño Archivo: 104857600bytes
-Cantidad de Paquetes Transmitidos: 12799
-Tiempo Transferencia: 1372ms
-Id Cliente al que se realizo transferencia: 5
-Estado de transferencia: 200

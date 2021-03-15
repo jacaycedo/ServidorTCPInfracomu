@@ -1,6 +1,0 @@
-Nombre Archivo: archivoPeque.txt
-Tamaño Archivo: 104857600bytes
-Cantidad de Paquetes Transmitidos: 25600
-Tiempo Transferencia: 1006ms
-Id Cliente al que se realizo transferencia: 2
-Estado de transferencia: 200

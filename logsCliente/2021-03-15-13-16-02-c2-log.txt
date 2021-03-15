@@ -1,0 +1,8 @@
+Nombre Archivo: archivo2.txt
+Tamaño Archivo: 24bytes
+Cantidad de Paquetes Transmitidos: 1
+Tiempo Transferencia: 23ms
+Id Cliente al que se realizo transferencia: 2
+Estado de transferencia: 200
+Integridad: Presenta problemas de integridad
+Hash recibido: 9748acd87c871b7cb0d618b8a4255d9a
