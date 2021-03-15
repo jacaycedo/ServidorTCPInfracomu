@@ -66,7 +66,6 @@ public class ServerThread extends Thread
 		int bytes = 0;
 		File file = new File(path);
 		String hash=cifrador.getFileChecksum(path);
-		System.out.println("Servidor:" +hash);
 		FileInputStream fileInputStream = new FileInputStream(file);
 		dataOutputStream.write(cantidadClientes);
 		dataOutputStream.write(hash.length());

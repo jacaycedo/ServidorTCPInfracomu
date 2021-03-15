@@ -31,7 +31,6 @@ public class ClientTCP extends Thread {
 		FileOutputStream fileOutputStream = new FileOutputStream(fileName);
 		int cantidad=dataInputStream.read();
 		String hash=new String(dataInputStream.readNBytes(cantidad), StandardCharsets.UTF_8);
-		System.out.println(id+"Recibido "+hash);
 		long size = dataInputStream.readLong();
 		long sizeAux = size;
 		dataOutputStream.write(id);
@@ -57,7 +56,6 @@ public class ClientTCP extends Thread {
 			nombreArchivo="archivo2.txt";
 		}
 		File file = new File(fileName);
-		System.out.println("file size"+file.length());
 		String integridad=cifrador.getFileChecksum(fileName);
 		String estadoIntegridad="No presenta problemas de integridad";
 

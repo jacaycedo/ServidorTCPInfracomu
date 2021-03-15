@@ -1,0 +1,7 @@
+Nombre Archivo: archivo1.txt
+Tamaño Archivo: 104857600bytes
+Cantidad de Paquetes Transmitidos: 25600
+Tiempo Transferencia: 1069ms
+Id Cliente al que se realizo transferencia: 1
+Estado de transferencia: 200
+Hash enviado: 2f282b84e7e608d5852449ed940bfc51
