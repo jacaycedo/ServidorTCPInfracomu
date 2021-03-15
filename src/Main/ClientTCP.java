@@ -17,25 +17,14 @@ public class ClientTCP extends Thread {
 	private static int id;
 	private static int cantidadClientes;	
 	private int archivo;
+	private int puerto;
 	//cuando se pase a threads quitar el static
 
 
 	public ClientTCP(int id, int puerto) {
-		try(Socket socket = new Socket("localhost",puerto)) 
-		{
-			this.id = id;
-			cantidadClientes = 2;
-			dataInputStream = new DataInputStream(socket.getInputStream());
-			dataOutputStream = new DataOutputStream(socket.getOutputStream());
-			String nombre="ArchivosRecibidos/Cliente"+id+"-Prueba-"+cantidadClientes+".txt";
-			receiveFile(nombre);
-			dataInputStream.close();
-			dataInputStream.close();
-		}
-		catch (Exception e){
-
-			e.printStackTrace();
-		}
+		this.puerto = puerto;
+		this.id = id;
+		
 	}
 
 	private static void receiveFile(String fileName) throws Exception{
@@ -84,13 +73,16 @@ public class ClientTCP extends Thread {
 	@Override
 	public void run() 
 	{
-		try 
+		try(Socket socket = new Socket("localhost",puerto)) 
 		{
+			cantidadClientes = 2;
+			dataInputStream = new DataInputStream(socket.getInputStream());
+			dataOutputStream = new DataOutputStream(socket.getOutputStream());
 			String nombre="ArchivosRecibidos/Cliente"+id+"-Prueba-"+cantidadClientes+".txt";
 			receiveFile(nombre);
 			dataInputStream.close();
-			dataInputStream.close();			
-		} 
+			dataInputStream.close();
+		}
 		catch (Exception e) 
 		{
 			e.printStackTrace();
