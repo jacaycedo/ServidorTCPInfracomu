@@ -14,11 +14,13 @@ public class ServerThread extends Thread
 	private DataOutputStream dataOutputStream = null;
 	private DataInputStream dataInputStream = null;
 	private int archivo;
+	private int cantidadClientes;
 
-	public ServerThread(int identificacion,String path,int opcion, int puerto) 
+	public ServerThread(int identificacion,String path,int opcion, int puerto,int cantidad) 
 	{
 		try
 		{
+			cantidadClientes=cantidad;
 			this.socket = new ServerSocket(puerto);	
 			this.id=identificacion;
 			ruta=path;
@@ -61,7 +63,9 @@ public class ServerThread extends Thread
 		File file = new File(path);
 		MessageDigest cifrador = MessageDigest.getInstance("MD5");
 
-		FileInputStream fileInputStream = new FileInputStream(file); 
+		FileInputStream fileInputStream = new FileInputStream(file);
+		dataOutputStream.write(cantidadClientes);
+		
 		long fileSize=file.length();//Tamanio archivo en bytes
 		String fileName=path.substring(5, path.length());
 

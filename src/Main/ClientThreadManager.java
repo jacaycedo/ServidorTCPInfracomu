@@ -8,7 +8,7 @@ public class ClientThreadManager
 	public static void main(String argv[]) 
 	{
 		Scanner lector = new Scanner(System.in);	
-		System.out.println("Cuantos clintes simultaneos desea implementar");
+		System.out.println("Cuantos clientes simultaneos desea implementar");
 		int cantidad =Integer.parseInt(lector.nextLine());
 		lector.close();
 		for (int i = 0; i < cantidad; i++) 

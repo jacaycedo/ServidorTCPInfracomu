@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ClientTCP extends Thread {
-	private static DataOutputStream dataOutputStream = null;
-	private static DataInputStream dataInputStream = null;
-	private static int id;
-	private static int cantidadClientes;	
+	private  DataOutputStream dataOutputStream = null;
+	private  DataInputStream dataInputStream = null;
+	private  int id;
+	private  int cantidadClientes;	
 	private int archivo;
 	private int puerto;
 	//cuando se pase a threads quitar el static
@@ -27,10 +27,10 @@ public class ClientTCP extends Thread {
 		
 	}
 
-	private static void receiveFile(String fileName) throws Exception{
+	private  void receiveFile(String fileName) throws Exception{
 		int bytes = 0;
 		FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-
+		cantidadClientes = dataInputStream.read();
 		long size = dataInputStream.readLong();
 		long sizeAux = size;
 		dataOutputStream.write(id);
@@ -54,7 +54,6 @@ public class ClientTCP extends Thread {
 		{
 			nombreArchivo="archivo2.txt";
 		}
-		System.out.println(dtf.format(now));
 		String nombreLog="logsCliente/"+dtf.format(now)+"-log.txt";  
 		PrintWriter writer = new PrintWriter(nombreLog, "UTF-8");
 		writer.println("Nombre Archivo: "+nombreArchivo);
@@ -64,7 +63,7 @@ public class ClientTCP extends Thread {
 		writer.println("Id Cliente al que se realizo transferencia: "+id);
 		writer.println("Estado de transferencia: " + 200);
 		dataOutputStream.write(200);
-		System.out.println("File Received");
+		System.out.println("Client "+ id+ " Received File");
 		writer.close(); 
 		fileOutputStream.close();
 	}
@@ -75,9 +74,10 @@ public class ClientTCP extends Thread {
 	{
 		try(Socket socket = new Socket("localhost",puerto)) 
 		{
-			cantidadClientes = 2;
+			
 			dataInputStream = new DataInputStream(socket.getInputStream());
 			dataOutputStream = new DataOutputStream(socket.getOutputStream());
+			cantidadClientes = dataInputStream.read();
 			String nombre="ArchivosRecibidos/Cliente"+id+"-Prueba-"+cantidadClientes+".txt";
 			receiveFile(nombre);
 			dataInputStream.close();

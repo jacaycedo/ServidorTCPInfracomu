@@ -27,7 +27,7 @@ public class ServerTCP
 		lector.close();
 		for (int i = 0; i < cantidad; i++) 
 		{
-			ServerThread newThread=new ServerThread(1,ruta,archivo, serverPort+i);
+			ServerThread newThread=new ServerThread(i,ruta,archivo, serverPort+i,cantidad);
 			newThread.start();
 		}
 
