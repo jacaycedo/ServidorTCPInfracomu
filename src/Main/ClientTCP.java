@@ -30,7 +30,6 @@ public class ClientTCP extends Thread {
 	private  void receiveFile(String fileName) throws Exception{
 		int bytes = 0;
 		FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-		cantidadClientes = dataInputStream.read();
 		long size = dataInputStream.readLong();
 		long sizeAux = size;
 		dataOutputStream.write(id);
