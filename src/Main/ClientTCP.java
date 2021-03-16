@@ -83,7 +83,7 @@ public class ClientTCP extends Thread {
 	@Override
 	public void run() 
 	{
-		try(Socket socket = new Socket("localhost",puerto)) 
+		try(Socket socket = new Socket("192.168.1.61",puerto)) 
 		{
 			
 			dataInputStream = new DataInputStream(socket.getInputStream());
